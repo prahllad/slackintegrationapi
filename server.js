@@ -4,32 +4,18 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 var cors=require('cors');
+var mongoose = require('mongoose');
+var post_url;
+/*mongoose.connect('mongodb://royprahllad:papai@93@ds163940.mlab.com:63940/myapp');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+*/
 var request = require('request');
 app.use(cors());
-app.get('/',function(req,res){
-    res.send('hello world');
-});
-app.post('/hello',function(req,res,next){
-    //var username = req.body.user_name;
-    console.log(req.body);
-    var bodypayload ={
-        text: 'welcome '+username+' to the slack bot'
-    }
-    if(username!=='slackbot'){
-        res.status(200).json(bodypayload);
-    } else {
-        res.status(200).end();
-    }
-    res.status(200).send('');
-});
-app.post('/',function(req,res,next){
+app.use(bodyParser());
+app.post('/',function(req,res){
         console.log(req.body);
-        if(req.body) {
-        res.status(200).send(questions[i]);
-    }
-    else {
         res.send(req.body);
-    }
 });
 io.on('connection', function(socket){
     console.log(socket.id);
